@@ -1,34 +1,10 @@
-import React, {Fragment, Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Image,
-  Button,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import {DynamicCollage, StaticCollage} from 'react-native-images-collage';
+import React, {Component, Fragment} from 'react';
+import {Dimensions, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {DynamicCollage} from 'react-native-images-collage';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {chooseImage} from './Tools';
+import CollageLayout from './CollageLayout';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const options = {
-  title: 'Select Avatar',
-  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -39,6 +15,12 @@ export default class App extends Component {
       },
       fileData: '',
       fileUri: '',
+      images: [
+        require('./assets/empty.png'),
+        require('./assets/empty.png'),
+        require('./assets/empty.png'),
+        require('./assets/empty.png'),
+      ],
     };
   }
   render() {
@@ -46,20 +28,16 @@ export default class App extends Component {
       <Fragment>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
-          <DynamicCollage
+          <CollageLayout />
+          {/* <DynamicCollage
             width={400}
             height={400}
-            images={[
-              require('./assets/empty.png'),
-              require('./assets/empty.png'),
-              require('./assets/empty.png'),
-              require('./assets/empty.png'),
-            ]}
-            matrix={[3,1]}
-            direction = 'column'
-            containerStyle = {{height : '100%'}}
-            onPress={alert("aaaa")}
-          />
+            images={this.state.images}
+            matrix={[3, 1]}
+            direction="column"
+            containerStyle={{height: '100%'}}
+            onPress={(m, i) => chooseImage()}
+          /> */}
         </SafeAreaView>
       </Fragment>
     );

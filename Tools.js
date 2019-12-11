@@ -1,17 +1,25 @@
 import ImagePicker from 'react-native-image-picker';
 
 export const chooseImage = () => {
-  let options = {
-    title: 'Select Image',
-    customButtons: [
-      {name: 'customOptionKey', title: 'Choose Photo from Custom Option'},
-    ],
+  // let options = {
+  //   title: 'Select Image',
+  //   customButtons: [
+  //     {name: 'customOptionKey', title: 'Choose Photo from Custom Option'},
+  //   ],
+  //   storageOptions: {
+  //     skipBackup: true,
+  //     path: 'images',
+  //   },
+  // };
+  const options = {
+    title: 'Select Avatar',
+    customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
     storageOptions: {
       skipBackup: true,
       path: 'images',
     },
   };
-  ImagePicker.showImagePicker(options, response => {
+  ImagePicker.showImagePicker(null, (response) => {
     console.log('Response = ', response);
 
     if (response.didCancel) {
