@@ -23,24 +23,27 @@ export default class ImageColl extends Component {
       ],
     };
   }
-  componentDidMount() {
-    console.log('matrix', this.props.matrix);
+  componentDidMount(){
+
   }
   render() {
+    const {navigation} = this.props;
+    const matrix = navigation.getParam('matrix');
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
-          <CollageLayout />
-          {/* <DynamicCollage
+          {/* <CollageLayout /> */}
+          <DynamicCollage
             width={400}
             height={400}
             images={this.state.images}
-            matrix={[3, 1]}
+            matrix={matrix}
             direction="column"
             containerStyle={{height: '100%'}}
             onPress={(m, i) => chooseImage()}
-          /> */}
+            isButtonVisible
+          />
         </SafeAreaView>
       </Fragment>
     );

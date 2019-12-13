@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TouchableHighlight, FlatList} from 'react-native';
+import {View, TouchableWithoutFeedback, FlatList} from 'react-native';
 import {
   LayoutData,
   StaticCollage,
@@ -30,9 +30,6 @@ export default class CollageLayout extends Component {
         images = [];
       });
     });
-    layoutData.filter((value, index, self) => {
-      index === self.findIndex(t => value.matr);
-    });
     this.setState({LayoutData: layoutData});
   }
   render() {
@@ -41,24 +38,40 @@ export default class CollageLayout extends Component {
       <FlatList
         data={this.state.LayoutData}
         renderItem={({item}) => (
-          <View>
-          <TouchableHighlight style={{
-                  zIndex: 999999,
-                  elevation: 50,
-                }}
-                onPress={() => console.log('aaaaa')}>
-
-              <DynamicCollage
-                width={400}
-                height={400}
-                scaleAmplifier = {0}
-                images={item.images}
-                matrix={item.matrix}
-                direction={item.direction}
-                isButtonVisible={false}
-              />
-
-            </TouchableHighlight>
+          <View
+            style={{
+              width: 400,
+              height: 400,
+            }}>
+            <View
+              style={{
+                zIndex: 99,
+                position: 'absolute',
+                width: 400,
+                height: 400,
+                backgroundColor : "green",
+                opacity : 0.2
+              }}>
+              <TouchableWithoutFeedback
+                onPress={() => navigate('ImageColl', {matrix: item.matrix})}>
+                <View
+                  style={{
+                    zIndex: 99,
+                    width: 400,
+                    height: 400,
+                    opacity: 0,
+                  }}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+            <DynamicCollage
+              height={400}
+              width={400}
+              images={item.images}
+              matrix={item.matrix}
+              direction={item.direction}
+              isButtonVisible={false}
+            />
           </View>
         )}
       />
