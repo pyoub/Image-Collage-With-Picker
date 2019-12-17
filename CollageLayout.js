@@ -17,6 +17,7 @@ export default class CollageLayout extends Component {
     let LD = Object.values(LayoutData);
     let layoutData = [];
     let images = [];
+    let key = 0;
     LD.forEach(k => {
       k.forEach((x, i) => {
         x.matrix.forEach(m => {
@@ -25,9 +26,10 @@ export default class CollageLayout extends Component {
           }
         });
         x.images = images;
-        x.key = i;
+        x.key = key;
         layoutData.push(x);
         images = [];
+        key++;
       });
     });
     this.setState({LayoutData: layoutData});
@@ -37,6 +39,7 @@ export default class CollageLayout extends Component {
     return (
       <FlatList
         data={this.state.LayoutData}
+        keyExtractor={item => item.key}
         renderItem={({item}) => (
           <View
             style={{
@@ -49,11 +52,17 @@ export default class CollageLayout extends Component {
                 position: 'absolute',
                 width: 400,
                 height: 400,
-                backgroundColor : "green",
-                opacity : 0.2
+                backgroundColor: 'green',
+                opacity: 0.2,
               }}>
               <TouchableWithoutFeedback
-                onPress={() => navigate('ImageColl', {matrix: item.matrix})}>
+                onPress={() =>
+                  navigate('ImageColl', {
+                    matrix: item.matrix,
+                    images: item.images,
+                    direction: item.direction,
+                  })
+                }>
                 <View
                   style={{
                     zIndex: 99,
@@ -70,7 +79,7 @@ export default class CollageLayout extends Component {
               images={item.images}
               matrix={item.matrix}
               direction={item.direction}
-              isButtonVisible={false}
+              isButtonVisible={true}
             />
           </View>
         )}

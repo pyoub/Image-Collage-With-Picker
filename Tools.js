@@ -1,6 +1,6 @@
 import ImagePicker from 'react-native-image-picker';
 
-export const chooseImage = () => {
+export const chooseImage = func => {
   // let options = {
   //   title: 'Select Image',
   //   customButtons: [
@@ -19,7 +19,7 @@ export const chooseImage = () => {
       path: 'images',
     },
   };
-  ImagePicker.showImagePicker(null, (response) => {
+  ImagePicker.showImagePicker({}, response => {
     console.log('Response = ', response);
 
     if (response.didCancel) {
@@ -36,11 +36,12 @@ export const chooseImage = () => {
       // const source = { uri: 'data:image/jpeg;base64,' + response.data };
       // alert(JSON.stringify(response));s
       console.log('response', JSON.stringify(response));
-      this.setState({
-        filePath: response,
-        fileData: response.data,
-        fileUri: response.uri,
-      });
+      // this.setState({
+      //   filePath: response,
+      //   fileData: response.data,
+      //   fileUri: response.uri,
+      // });
+      func(response);
     }
   });
 };
