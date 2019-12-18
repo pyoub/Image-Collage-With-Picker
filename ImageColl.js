@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Dimensions, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {Dimensions, SafeAreaView, StatusBar, StyleSheet,BackHandler} from 'react-native';
 import {DynamicCollage} from 'react-native-images-collage';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {chooseImage} from './Tools';
@@ -26,6 +26,16 @@ export default class ImageColl extends Component {
   //   //const matrix = navigation.getParam('matrix');
   //   this.setState({matrix:navigation.getParam('matrix'),images : navigation.getParam('matrix')})
   // }
+  componentDidMount() {
+    //BackHandler.addEventListener('hardwareBackPress', this._onBackIconPress);
+
+  }
+  componentWillUnmount() {
+    // BackHandler.removeEventListener(
+    //   'hardwareBackPress',
+    //   this._onBackIconPress
+    // );
+  }
 
   render() {
     console.log(
@@ -50,7 +60,12 @@ export default class ImageColl extends Component {
               chooseImage(rep => {
                 if (rep.uri && rep.uri != '') {
                   let list = this.state.images;
-                  list[m+i] = rep.uri;
+                  let t = this.state.matrix.filter((v,index,self)=> index< m);
+                  let s =0;
+                  if(t.length>0){
+                     s = t.reduce((a,b)=> a+b)
+                  }
+                  list[s+i] = rep.uri;
                   this.setState({images: list});
                 }
               })
