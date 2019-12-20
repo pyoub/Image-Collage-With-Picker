@@ -1,5 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import {Dimensions, SafeAreaView, StatusBar, StyleSheet,BackHandler} from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  BackHandler,
+  Button
+} from 'react-native';
 import {DynamicCollage} from 'react-native-images-collage';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {chooseImage} from './Tools';
@@ -21,29 +28,8 @@ export default class ImageColl extends Component {
       images: navigation.getParam('images'),
     };
   }
-  // componentDidMount(){
-
-  //   //const matrix = navigation.getParam('matrix');
-  //   this.setState({matrix:navigation.getParam('matrix'),images : navigation.getParam('matrix')})
-  // }
-  componentDidMount() {
-    //BackHandler.addEventListener('hardwareBackPress', this._onBackIconPress);
-
-  }
-  componentWillUnmount() {
-    // BackHandler.removeEventListener(
-    //   'hardwareBackPress',
-    //   this._onBackIconPress
-    // );
-  }
 
   render() {
-    console.log(
-      this.state.images,
-      'image',
-      this.state.matrix,
-      'this.state.matrix',
-    );
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" />
@@ -55,17 +41,19 @@ export default class ImageColl extends Component {
             images={this.state.images}
             matrix={this.state.matrix}
             direction={this.state.direction}
-            containerStyle={{height: '100%'}}
+            containerStyle={{height: '60%'}}
             onPress={(m, i) =>
               chooseImage(rep => {
                 if (rep.uri && rep.uri != '') {
                   let list = this.state.images;
-                  let t = this.state.matrix.filter((v,index,self)=> index< m);
-                  let s =0;
-                  if(t.length>0){
-                     s = t.reduce((a,b)=> a+b)
+                  let t = this.state.matrix.filter(
+                    (v, index, self) => index < m,
+                  );
+                  let s = 0;
+                  if (t.length > 0) {
+                    s = t.reduce((a, b) => a + b);
                   }
-                  list[s+i] = rep.uri;
+                  list[s + i] = rep.uri;
                   this.setState({images: list});
                 }
               })
@@ -73,6 +61,7 @@ export default class ImageColl extends Component {
             isButtonVisible={true}
             img={require('./assets/icon-add.jpg')}
           />
+          <Button title="button"> Button </Button>
         </SafeAreaView>
       </Fragment>
     );
