@@ -36,6 +36,10 @@ target 'Collage_Photo_App' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'react-native-view-shot', :path => '../node_modules/react-native-view-shot'
+
+  pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
   target 'Collage_Photo_AppTests' do
     inherit! :search_paths
     # Pods for testing

@@ -4,23 +4,23 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  BackHandler,
-  Button
+  Image,
+  Button,
 } from 'react-native';
 import {DynamicCollage} from 'react-native-images-collage';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {chooseImage} from './Tools';
 import CollageLayout from './CollageLayout';
+import ViewShot from 'react-native-view-shot';
+import CameraRoll from "@react-native-community/cameraroll";
 
 export default class ImageColl extends Component {
   constructor(props) {
     super(props);
     const {navigation} = this.props;
+    this.setRef = this.setRef.bind(this);
     this.state = {
-      filepath: {
-        data: '',
-        uri: '',
-      },
+      uri : "",
       fileData: '',
       fileUri: '',
       direction: navigation.getParam('direction'),
@@ -28,40 +28,56 @@ export default class ImageColl extends Component {
       images: navigation.getParam('images'),
     };
   }
-
+  setRef(input) {
+    this.childRef = input;
+  }
   render() {
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
-          {/* <CollageLayout /> */}
-          <DynamicCollage
-            width={400}
-            height={400}
-            images={this.state.images}
-            matrix={this.state.matrix}
-            direction={this.state.direction}
-            containerStyle={{height: '60%'}}
-            onPress={(m, i) =>
-              chooseImage(rep => {
-                if (rep.uri && rep.uri != '') {
-                  let list = this.state.images;
-                  let t = this.state.matrix.filter(
-                    (v, index, self) => index < m,
-                  );
-                  let s = 0;
-                  if (t.length > 0) {
-                    s = t.reduce((a, b) => a + b);
+          <ViewShot ref="viewShot" options={{format: 'jpg', quality: 0.9}}>
+            <DynamicCollage
+              width={400}
+              height={400}
+              images={this.state.images}
+              matrix={this.state.matrix}
+              direction={this.state.direction}
+              containerStyle={{height: '80%'}}
+              onPress={(m, i) =>
+                chooseImage(rep => {
+                  if (rep.uri && rep.uri != '') {
+                    let list = this.state.images;
+                    let t = this.state.matrix.filter(
+                      (v, index, self) => index < m,
+                    );
+                    let s = 0;
+                    if (t.length > 0) {
+                      s = t.reduce((a, b) => a + b);
+                    }
+                    list[s + i] = rep.uri;
+                    this.setState({images: list});
                   }
-                  list[s + i] = rep.uri;
-                  this.setState({images: list});
-                }
+                })
+              }
+              isButtonVisible={true}
+              img={require('./assets/icon-add.jpg')}
+              setRef={this.setRef}
+            />
+          </ViewShot>
+          <Button
+            onPress={() =>{
+              this.childRef.setNativeProps({
+    display : "none"
+  });
+              this.refs.viewShot.capture().then(uri => {
+                CameraRoll.saveToCameraRoll(uri,'photo');
               })
-            }
-            isButtonVisible={true}
-            img={require('./assets/icon-add.jpg')}
-          />
-          <Button title="button"> Button </Button>
+            }}
+            title="Save">
+            Save
+          </Button>
+          <Image source={this.state.uri}/>
         </SafeAreaView>
       </Fragment>
     );
