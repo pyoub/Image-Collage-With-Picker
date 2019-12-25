@@ -1,4 +1,8 @@
 rootProject.name = 'Collage_Photo_App'
+include ':@react-native-firebase_app'
+project(':@react-native-firebase_app').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-firebase/app/android')
+include ':@react-native-firebase_admob'
+project(':@react-native-firebase_admob').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-firebase/admob/android')
 include ':@react-native-community_cameraroll'
 project(':@react-native-community_cameraroll').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/cameraroll/android')
 include ':react-native-view-shot'

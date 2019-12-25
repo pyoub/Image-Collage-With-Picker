@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "849368378581",
+    "firebase_url": "https://collageimage.firebaseio.com",
+    "project_id": "collageimage",
+    "storage_bucket": "collageimage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849368378581:android:646ad18dd819aab4cb465c",
+        "android_client_info": {
+          "package_name": "com.collage_photo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849368378581-oes5irdapmuh0r3rcq4khkk475jrhkf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLtKYjHYHd2bu36iTvlof40KUHGl3w5HU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849368378581-oes5irdapmuh0r3rcq4khkk475jrhkf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
