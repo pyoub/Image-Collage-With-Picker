@@ -40,6 +40,10 @@ target 'Collage_Photo_App' do
 
   pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
 
+  pod 'RNFBAdMob', :path => '../node_modules/@react-native-firebase/admob'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
   target 'Collage_Photo_AppTests' do
     inherit! :search_paths
     # Pods for testing
